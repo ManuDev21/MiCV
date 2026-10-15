@@ -198,16 +198,16 @@ export default function Contact() {
         </p>
       </div>
 
-      <div className="mt-14 grid lg:grid-cols-12 gap-8 items-start">
+      <div className="mt-10 sm:mt-14 grid lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         {/* Direct Channels Panel */}
         <motion.div
           initial={{ opacity: 0, x: -28 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="lg:col-span-5"
+          className="lg:col-span-5 min-w-0"
         >
-          <GlassPanel variant="crystal" neonBorder hudCorners className="p-6 sm:p-8">
+          <GlassPanel variant="crystal" neonBorder hudCorners className="p-4 sm:p-8">
             <div className="flex items-center justify-between">
               <h3 className="font-display text-xl font-bold text-nexus-white">
                 Canales Directos
@@ -288,9 +288,9 @@ export default function Contact() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="lg:col-span-7"
+          className="lg:col-span-7 min-w-0"
         >
-          <GlassPanel variant="crystal" neonBorder hudCorners className="p-6 sm:p-8">
+          <GlassPanel variant="crystal" neonBorder hudCorners className="p-4 sm:p-8">
             <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/10">
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-nexus-cyan">

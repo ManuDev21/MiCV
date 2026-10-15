@@ -56,7 +56,7 @@ export default function Skills() {
         <div
           role="tablist"
           aria-label="Filtrar tecnologías por categoría"
-          className="flex flex-wrap gap-2 p-1.5 rounded-2xl neu-pressed border border-white/5 self-start"
+          className="flex flex-wrap gap-1.5 sm:gap-2 p-1.5 rounded-2xl neu-pressed border border-white/5 w-full md:w-auto"
         >
           {categories.map((cat) => {
             const active = activeCategory === cat;
@@ -93,7 +93,7 @@ export default function Skills() {
       </div>
 
       {/* Category Panels */}
-      <div className="mt-12 grid lg:grid-cols-2 gap-6">
+      <div className="mt-8 sm:mt-12 grid lg:grid-cols-2 gap-5 sm:gap-6">
         <AnimatePresence mode="popLayout">
           {filteredEntries.map(([category, items]: [string, Skill[]], idx) => (
             <motion.div
@@ -103,14 +103,14 @@ export default function Skills() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.45, delay: idx * 0.06 }}
-              className={
+              className={`min-w-0 ${
                 filteredEntries.length === 1 ? 'lg:col-span-2' : ''
-              }
+              }`}
             >
               <HolographicCard
                 maxTilt={5}
                 glowColor={idx % 2 === 0 ? 'cyan' : 'violet'}
-                className="p-6 sm:p-7"
+                className="p-4 sm:p-7"
               >
                 <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/10">
                   <div>

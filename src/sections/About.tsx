@@ -53,7 +53,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.65 }}
-          className="lg:col-span-6 space-y-6"
+          className="lg:col-span-6 min-w-0 space-y-6"
         >
           <span className="section-eyebrow">
             <FiCode /> // 01 • Identidad & Arquitectura
@@ -101,7 +101,7 @@ export default function About() {
         </motion.div>
 
         {/* 4 Holographic Engineering Pillars */}
-        <div className="lg:col-span-6 grid sm:grid-cols-2 gap-5">
+        <div className="lg:col-span-6 min-w-0 grid sm:grid-cols-2 gap-4 sm:gap-5">
           {pillars.map((c, i) => (
             <motion.div
               key={c.title}

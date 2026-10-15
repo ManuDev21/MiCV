@@ -159,8 +159,13 @@ export default function InteractiveIDCard() {
         didDragRef.current = true;
       }
 
-      const clampedX = elasticClamp(dx, 145);
-      const clampedY = dy < 0 ? elasticClamp(dy, 75) : elasticClamp(dy, 185);
+      const isSmallScreen = window.innerWidth < 640;
+      const maxH = isSmallScreen ? 75 : 145;
+      const maxUp = isSmallScreen ? 55 : 75;
+      const maxDown = isSmallScreen ? 135 : 185;
+
+      const clampedX = elasticClamp(dx, maxH);
+      const clampedY = dy < 0 ? elasticClamp(dy, maxUp) : elasticClamp(dy, maxDown);
 
       rawX.set(clampedX);
       rawY.set(clampedY);
@@ -229,14 +234,14 @@ export default function InteractiveIDCard() {
   ];
 
   return (
-    <div className="relative w-full flex flex-col items-center justify-center pt-16 pb-4 select-none">
+    <div className="relative w-full max-w-full flex flex-col items-center justify-center pt-14 sm:pt-16 pb-4 select-none overflow-visible">
       {/* Ambient Holographic Rings behind Badge */}
-      <div className="pointer-events-none absolute w-72 h-72 sm:w-80 sm:h-80 rounded-full border border-nexus-cyan/15 animate-pulse-slow" />
+      <div className="pointer-events-none absolute w-64 h-64 sm:w-80 sm:h-80 rounded-full border border-nexus-cyan/15 animate-pulse-slow" />
 
       {/* Dynamic Elastic Lanyard Strap SVG anchored at top */}
       <svg
         viewBox="0 0 340 260"
-        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[340px] h-[260px] z-20 overflow-visible"
+        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[280px] sm:w-[340px] h-[240px] sm:h-[260px] z-20 overflow-visible"
         aria-hidden="true"
       >
         <defs>
@@ -292,7 +297,7 @@ export default function InteractiveIDCard() {
           transformPerspective: 1200,
           touchAction: 'none',
         }}
-        className={`relative z-30 w-[305px] sm:w-[340px] rounded-[26px] p-[1.5px] will-change-transform transition-shadow duration-300 ${
+        className={`relative z-30 w-full max-w-[295px] sm:max-w-[340px] rounded-[24px] sm:rounded-[26px] p-[1.5px] will-change-transform transition-shadow duration-300 ${
           isDragging
             ? 'cursor-grabbing shadow-[0_0_50px_rgba(0,229,255,0.5),0_28px_65px_rgba(3,4,7,0.75)] scale-[1.02]'
             : 'cursor-grab shadow-[0_22px_55px_-12px_rgba(3,4,7,0.65),0_0_26px_rgba(139,92,246,0.22)]'

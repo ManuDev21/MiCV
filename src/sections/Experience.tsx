@@ -40,9 +40,9 @@ export default function Experience() {
       </div>
 
       {/* Luminous Energy Timeline */}
-      <div className="relative mt-16 max-w-5xl mx-auto">
+      <div className="relative mt-12 sm:mt-16 max-w-5xl mx-auto">
         {/* Central / Left Energy Conduit Line */}
-        <div className="absolute left-4 md:left-1/2 top-2 bottom-2 w-[2px] -translate-x-1/2 bg-gradient-to-b from-nexus-cyan via-nexus-violet to-nexus-magenta opacity-70 shadow-neon-cyan" />
+        <div className="absolute left-3 sm:left-4 md:left-1/2 top-2 bottom-2 w-[2px] -translate-x-1/2 bg-gradient-to-b from-nexus-cyan via-nexus-violet to-nexus-magenta opacity-70 shadow-neon-cyan" />
 
         {experience.map((exp, i) => {
           const isLeft = i % 2 === 0;
@@ -55,7 +55,7 @@ export default function Experience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className={`relative mb-12 md:grid md:grid-cols-2 md:gap-12 items-start ${
+              className={`relative mb-8 sm:mb-12 md:grid md:grid-cols-2 md:gap-12 items-start ${
                 isLeft ? '' : 'md:[&>div:first-child]:order-2'
               }`}
             >
@@ -67,17 +67,17 @@ export default function Experience() {
                   setExpandedInline(isExpanded ? null : i);
                   triggerDragonPulse();
                 }}
-                className="absolute left-4 md:left-1/2 -translate-x-1/2 top-6 z-20 w-5 h-5 rounded-full bg-nexus-void border-2 border-nexus-cyan shadow-neon-cyan grid place-items-center group"
+                className="absolute left-3 sm:left-4 md:left-1/2 -translate-x-1/2 top-6 z-20 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-nexus-void border-2 border-nexus-cyan shadow-neon-cyan grid place-items-center group"
               >
-                <span className="w-2 h-2 rounded-full bg-nexus-cyan group-hover:scale-125 transition" />
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-nexus-cyan group-hover:scale-125 transition" />
               </button>
 
-              <div className={`pl-12 md:pl-0 ${isLeft ? 'md:pr-10' : 'md:pl-10'}`}>
+              <div className={`min-w-0 pl-8 sm:pl-12 md:pl-0 ${isLeft ? 'md:pr-10' : 'md:pl-10'}`}>
                 <HolographicCard
                   maxTilt={5}
                   glowColor={i % 3 === 0 ? 'cyan' : i % 3 === 1 ? 'violet' : 'magenta'}
                   badge={`PRJ // 0${i + 1}`}
-                  className="p-6 sm:p-7"
+                  className="p-4 sm:p-7"
                 >
                   {/* Period & Context Header */}
                   <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-nexus-cyan">

@@ -19,11 +19,11 @@ export default function Education() {
         </p>
       </div>
 
-      <div className="mt-14 max-w-4xl mx-auto relative">
+      <div className="mt-10 sm:mt-14 max-w-4xl mx-auto relative">
         {/* Vertical Holographic Spine */}
-        <div className="absolute left-5 sm:left-8 top-4 bottom-4 w-[2px] bg-gradient-to-b from-nexus-violet via-nexus-cyan to-transparent opacity-65 shadow-neon-cyan" />
+        <div className="absolute left-4 sm:left-8 top-4 bottom-4 w-[2px] bg-gradient-to-b from-nexus-violet via-nexus-cyan to-transparent opacity-65 shadow-neon-cyan" />
 
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {education.map((e, i) => {
             const isCurrent = e.period.toLowerCase().includes('presente');
             return (
@@ -33,18 +33,18 @@ export default function Education() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.6, delay: i * 0.12 }}
-                className="relative pl-14 sm:pl-20"
+                className="relative pl-11 sm:pl-20 min-w-0"
               >
                 {/* Node Icon */}
-                <span className="absolute left-1.5 sm:left-4 top-5 w-8 h-8 rounded-xl glass-strong border border-nexus-cyan/45 grid place-items-center shadow-neon-cyan">
-                  <FiBookOpen className="text-nexus-cyan text-sm" />
+                <span className="absolute left-0.5 sm:left-4 top-5 w-7 h-7 sm:w-8 sm:h-8 rounded-xl glass-strong border border-nexus-cyan/45 grid place-items-center shadow-neon-cyan">
+                  <FiBookOpen className="text-nexus-cyan text-xs sm:text-sm" />
                 </span>
 
                 <HolographicCard
                   maxTilt={5}
                   glowColor={isCurrent ? 'cyan' : 'violet'}
                   badge={isCurrent ? 'EN CURSO' : 'FINALIZADO'}
-                  className="p-6 sm:p-7"
+                  className="p-4 sm:p-7"
                 >
                   <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-nexus-cyan">
                     <span className="inline-flex items-center gap-1.5">
