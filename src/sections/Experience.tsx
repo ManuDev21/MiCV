@@ -7,6 +7,7 @@ import {
   FiCheckCircle,
   FiLayers,
   FiCalendar,
+  FiGithub,
 } from 'react-icons/fi';
 import { experience } from '../data/profile';
 import HolographicCard from '../components/ui/HolographicCard';
@@ -32,8 +33,9 @@ export default function Experience() {
           Experiencia & <span className="text-gradient">Proyectos</span>
         </h2>
         <p className="mt-3 text-nexus-muted text-sm sm:text-base font-grotesk">
-          Sistemas reales desarrollados de extremo a extremo: desde plataformas de
-          administración deportiva hasta experiencias web inmersivas y comercio electrónico.
+          Sistemas reales desarrollados de extremo a extremo: desde la PWA inteligente ÍXA
+          con Machine Learning para Pueblos Mágicos hasta plataformas de gestión deportiva
+          y comercio electrónico.
         </p>
       </div>
 
@@ -49,10 +51,10 @@ export default function Experience() {
           return (
             <motion.div
               key={exp.title}
-              initial={{ opacity: 0, y: 36 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-70px' }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
               className={`relative mb-12 md:grid md:grid-cols-2 md:gap-12 items-start ${
                 isLeft ? '' : 'md:[&>div:first-child]:order-2'
               }`}
@@ -72,8 +74,8 @@ export default function Experience() {
 
               <div className={`pl-12 md:pl-0 ${isLeft ? 'md:pr-10' : 'md:pl-10'}`}>
                 <HolographicCard
-                  maxTilt={6}
-                  glowColor={i === 0 ? 'cyan' : i === 1 ? 'violet' : 'magenta'}
+                  maxTilt={5}
+                  glowColor={i % 3 === 0 ? 'cyan' : i % 3 === 1 ? 'violet' : 'magenta'}
                   badge={`PRJ // 0${i + 1}`}
                   className="p-6 sm:p-7"
                 >
@@ -101,13 +103,13 @@ export default function Experience() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="mt-4 pt-3.5 border-t border-white/10 space-y-2 overflow-hidden"
+                        transition={{ duration: 0.25 }}
+                        className="mt-4 pt-3.5 border-t border-nexus-border space-y-2 overflow-hidden"
                       >
                         {exp.details.map((d) => (
                           <li
                             key={d}
-                            className="flex items-start gap-2 text-xs sm:text-sm text-nexus-white/85"
+                            className="flex items-start gap-2 text-xs sm:text-sm text-nexus-white/90"
                           >
                             <FiCheckCircle className="text-nexus-cyan mt-0.5 shrink-0" />
                             <span>{d}</span>
@@ -118,7 +120,7 @@ export default function Experience() {
                   </AnimatePresence>
 
                   {/* Tech Stack Chips */}
-                  <div className="mt-5 flex flex-wrap gap-2">
+                  <div className="mt-5 flex flex-wrap gap-1.5">
                     {exp.tags.map((t) => (
                       <span key={t} className="chip text-[11px]">
                         {t}
@@ -127,7 +129,7 @@ export default function Experience() {
                   </div>
 
                   {/* Interactive Actions */}
-                  <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between gap-4">
+                  <div className="mt-5 pt-4 border-t border-nexus-border flex flex-wrap items-center justify-between gap-3">
                     <button
                       type="button"
                       onClick={() => setExpandedInline(isExpanded ? null : i)}
@@ -136,13 +138,25 @@ export default function Experience() {
                       {isExpanded ? 'Ocultar puntos clave' : 'Desplegar puntos clave'}
                     </button>
 
-                    <button
-                      type="button"
-                      onClick={() => openDetailsModal(i)}
-                      className="inline-flex items-center gap-1.5 text-xs font-display uppercase tracking-wider text-nexus-cyan hover:text-nexus-violet transition"
-                    >
-                      Inspeccionar <FiArrowUpRight className="text-sm" />
-                    </button>
+                    <div className="flex items-center gap-3">
+                      {exp.repoUrl && (
+                        <a
+                          href={exp.repoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg neu-button text-xs font-mono text-nexus-white hover:text-nexus-cyan transition"
+                        >
+                          <FiGithub /> Código
+                        </a>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => openDetailsModal(i)}
+                        className="inline-flex items-center gap-1.5 text-xs font-display uppercase tracking-wider text-nexus-cyan hover:text-nexus-violet transition"
+                      >
+                        Inspeccionar <FiArrowUpRight className="text-sm" />
+                      </button>
+                    </div>
                   </div>
                 </HolographicCard>
               </div>
@@ -160,19 +174,19 @@ export default function Experience() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-nexus-void/80 backdrop-blur-lg grid place-items-center p-4"
+            className="fixed inset-0 z-[60] bg-black/75 backdrop-blur-md grid place-items-center p-4"
             onClick={() => setSelectedIndex(null)}
           >
             <motion.div
-              initial={{ scale: 0.92, opacity: 0, y: 20 }}
+              initial={{ scale: 0.94, opacity: 0, y: 16 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ type: 'spring', damping: 22 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              transition={{ type: 'spring', damping: 24, stiffness: 260 }}
               onClick={(e) => e.stopPropagation()}
               role="dialog"
               aria-modal="true"
               aria-labelledby="exp-modal-title"
-              className="relative max-w-xl w-full glass-crystal neon-border hud-corners rounded-2xl p-6 sm:p-8"
+              className="relative max-w-2xl max-h-[88vh] overflow-y-auto w-full glass-crystal neon-border hud-corners rounded-2xl p-6 sm:p-8"
             >
               <button
                 type="button"
@@ -188,7 +202,7 @@ export default function Experience() {
               </span>
               <h3
                 id="exp-modal-title"
-                className="mt-2 font-display text-2xl font-bold text-nexus-white"
+                className="mt-2 font-display text-xl sm:text-2xl font-bold text-nexus-white pr-8"
               >
                 {experience[selectedIndex].title}
               </h3>
@@ -200,7 +214,7 @@ export default function Experience() {
                 {experience[selectedIndex].summary}
               </p>
 
-              <div className="mt-5 pt-4 border-t border-white/10">
+              <div className="mt-5 pt-4 border-t border-nexus-border">
                 <h4 className="text-xs font-display uppercase tracking-widest text-nexus-white/80 mb-3">
                   Arquitectura & Entregables
                 </h4>
@@ -221,6 +235,19 @@ export default function Experience() {
                   </span>
                 ))}
               </div>
+
+              {experience[selectedIndex].repoUrl && (
+                <div className="mt-6 pt-4 border-t border-nexus-border flex justify-end">
+                  <a
+                    href={experience[selectedIndex].repoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-primary !py-2.5 !px-5 text-xs"
+                  >
+                    <FiGithub /> Ver Repositorio en GitHub
+                  </a>
+                </div>
+              )}
             </motion.div>
           </motion.div>
         )}

@@ -73,7 +73,7 @@ function HomeLayout() {
       <CustomCursor />
       <ScrollProgress />
       <Suspense fallback={<DragonFallback />}>
-        <DragonScene />
+        <DragonScene theme={theme} />
       </Suspense>
       <Navbar />
       <main className="relative z-10">

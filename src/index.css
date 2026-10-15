@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark light;
+  color-scheme: dark;
   --nexus-void: #030407;
   --nexus-abyss: #080B13;
   --nexus-surface: #101521;
@@ -13,8 +13,44 @@
   --nexus-magenta: #EC4899;
   --nexus-white: #F5FAFF;
   --nexus-muted: #9CA8BD;
+
+  --nexus-void-rgb: 3 4 7;
+  --nexus-abyss-rgb: 8 11 19;
+  --nexus-surface-rgb: 16 21 33;
+  --nexus-violet-rgb: 139 92 246;
+  --nexus-cyan-rgb: 0 229 255;
+  --nexus-plasma-rgb: 59 130 246;
+  --nexus-magenta-rgb: 236 72 153;
+  --nexus-white-rgb: 245 250 255;
+  --nexus-muted-rgb: 156 168 189;
+  --nexus-border-rgb: 255 255 255;
+
   --mx: 50%;
   --my: 30%;
+}
+
+html.light {
+  color-scheme: light;
+  --nexus-void: #F4F7FC;
+  --nexus-abyss: #FFFFFF;
+  --nexus-surface: #EAF0FA;
+  --nexus-violet: #6D28D9;
+  --nexus-cyan: #0284C7;
+  --nexus-plasma: #2563EB;
+  --nexus-magenta: #DB2777;
+  --nexus-white: #0B1120;
+  --nexus-muted: #475569;
+
+  --nexus-void-rgb: 244 247 252;
+  --nexus-abyss-rgb: 255 255 255;
+  --nexus-surface-rgb: 234 240 250;
+  --nexus-violet-rgb: 109 40 217;
+  --nexus-cyan-rgb: 2 132 199;
+  --nexus-plasma-rgb: 37 99 235;
+  --nexus-magenta-rgb: 219 39 119;
+  --nexus-white-rgb: 11 17 32;
+  --nexus-muted-rgb: 71 85 105;
+  --nexus-border-rgb: 15 23 42;
 }
 
 html,
@@ -32,17 +68,12 @@ body {
   background-color: var(--nexus-void);
   color: var(--nexus-white);
   overflow-x: hidden;
-  selection-background-color: rgba(139, 92, 246, 0.45);
-}
-
-html.light body {
-  background-color: #EFF3FA;
-  color: #080B13;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 ::selection {
-  background: rgba(0, 229, 255, 0.32);
-  color: #F5FAFF;
+  background: rgba(0, 229, 255, 0.28);
+  color: var(--nexus-white);
 }
 
 /* Custom scrollbar */
@@ -51,113 +82,157 @@ html.light body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #030407;
+  background: var(--nexus-void);
 }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #8B5CF6, #00E5FF, #3B82F6);
   border-radius: 999px;
 }
 
-/* Focus visibility for accessibility */
 :focus-visible {
-  outline: 2px solid #00E5FF;
+  outline: 2px solid var(--nexus-cyan);
   outline-offset: 3px;
 }
 
 @layer components {
-  /* Multi-tier Glassmorphism */
+  .border-nexus-border {
+    border-color: rgb(var(--nexus-border-rgb) / 0.1);
+  }
+
+  /* Multi-tier Glassmorphism (GPU-friendly blur radii) */
   .glass {
-    backdrop-filter: blur(16px) saturate(150%);
-    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     background: linear-gradient(
       145deg,
-      rgba(16, 21, 33, 0.72) 0%,
-      rgba(8, 11, 19, 0.58) 100%
+      rgba(16, 21, 33, 0.76) 0%,
+      rgba(8, 11, 19, 0.64) 100%
     );
-    border: 1px solid rgba(245, 250, 255, 0.08);
+    border: 1px solid rgba(245, 250, 255, 0.09);
     box-shadow:
-      0 20px 50px -15px rgba(3, 4, 7, 0.75),
+      0 16px 40px -12px rgba(3, 4, 7, 0.65),
       inset 0 1px 0 0 rgba(245, 250, 255, 0.1);
   }
 
   .glass-strong {
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     background: linear-gradient(
       135deg,
-      rgba(16, 21, 33, 0.86) 0%,
-      rgba(8, 11, 19, 0.78) 60%,
-      rgba(19, 24, 42, 0.84) 100%
+      rgba(16, 21, 33, 0.88) 0%,
+      rgba(8, 11, 19, 0.82) 100%
     );
-    border: 1px solid rgba(0, 229, 255, 0.16);
+    border: 1px solid rgba(0, 229, 255, 0.2);
     box-shadow:
-      0 25px 60px -12px rgba(3, 4, 7, 0.85),
+      0 20px 48px -12px rgba(3, 4, 7, 0.78),
       inset 0 1px 1px 0 rgba(245, 250, 255, 0.14);
   }
 
   .glass-crystal {
-    backdrop-filter: blur(28px) saturate(190%);
-    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     background:
-      radial-gradient(circle at top left, rgba(0, 229, 255, 0.14), transparent 55%),
-      radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.16), transparent 55%),
-      linear-gradient(155deg, rgba(16, 21, 33, 0.82) 0%, rgba(8, 11, 19, 0.7) 100%);
+      radial-gradient(circle at top left, rgba(0, 229, 255, 0.12), transparent 55%),
+      radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.14), transparent 55%),
+      linear-gradient(155deg, rgba(16, 21, 33, 0.86) 0%, rgba(8, 11, 19, 0.76) 100%);
     border: 1px solid rgba(245, 250, 255, 0.12);
     box-shadow:
-      0 30px 70px -15px rgba(2, 3, 6, 0.9),
-      inset 0 1px 0 0 rgba(245, 250, 255, 0.18),
-      inset 0 -1px 0 0 rgba(0, 229, 255, 0.12);
+      0 24px 55px -15px rgba(2, 3, 6, 0.82),
+      inset 0 1px 0 0 rgba(245, 250, 255, 0.16);
   }
 
-  .light .glass,
-  .light .glass-strong,
-  .light .glass-crystal {
-    background: rgba(255, 255, 255, 0.78);
-    border-color: rgba(8, 11, 19, 0.1);
-    box-shadow: 0 20px 45px -15px rgba(8, 11, 19, 0.12);
-    color: #080B13;
+  /* Light Mode Glassmorphism Adaptation */
+  html.light .glass {
+    background: linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.88) 0%,
+      rgba(241, 245, 253, 0.82) 100%
+    );
+    border-color: rgba(15, 23, 42, 0.1);
+    box-shadow:
+      0 14px 34px -10px rgba(15, 23, 42, 0.08),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
   }
 
-  /* Dark Neumorphism */
+  html.light .glass-strong {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(238, 244, 253, 0.9) 100%
+    );
+    border-color: rgba(2, 132, 199, 0.28);
+    box-shadow:
+      0 18px 42px -12px rgba(15, 23, 42, 0.12),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+  }
+
+  html.light .glass-crystal {
+    background:
+      radial-gradient(circle at top left, rgba(2, 132, 199, 0.1), transparent 55%),
+      radial-gradient(circle at bottom right, rgba(109, 40, 217, 0.1), transparent 55%),
+      linear-gradient(155deg, rgba(255, 255, 255, 0.92) 0%, rgba(241, 246, 254, 0.88) 100%);
+    border-color: rgba(15, 23, 42, 0.11);
+    box-shadow:
+      0 22px 50px -14px rgba(15, 23, 42, 0.12),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.95);
+  }
+
+  /* Dark & Light Neumorphism */
   .neu-surface {
     background: linear-gradient(145deg, #121826, #0b0f18);
     border: 1px solid rgba(245, 250, 255, 0.06);
     box-shadow:
-      8px 8px 18px rgba(1, 2, 5, 0.88),
-      -6px -6px 14px rgba(28, 39, 64, 0.28),
+      6px 6px 14px rgba(1, 2, 5, 0.8),
+      -4px -4px 12px rgba(28, 39, 64, 0.24),
       inset 0 1px 0 rgba(245, 250, 255, 0.07);
+  }
+  html.light .neu-surface {
+    background: linear-gradient(145deg, #FFFFFF, #EDF2FA);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow:
+      6px 6px 16px rgba(148, 163, 184, 0.25),
+      -4px -4px 12px rgba(255, 255, 255, 0.9),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95);
   }
 
   .neu-pressed {
     background: #080B13;
     border: 1px solid rgba(0, 229, 255, 0.14);
     box-shadow:
-      inset 5px 5px 11px rgba(1, 2, 5, 0.92),
-      inset -4px -4px 9px rgba(26, 36, 58, 0.32);
+      inset 4px 4px 9px rgba(1, 2, 5, 0.88),
+      inset -3px -3px 7px rgba(26, 36, 58, 0.28);
+  }
+  html.light .neu-pressed {
+    background: #EEF3FA;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    box-shadow:
+      inset 3px 3px 7px rgba(148, 163, 184, 0.32),
+      inset -3px -3px 7px rgba(255, 255, 255, 0.92);
   }
 
   .neu-button {
     background: linear-gradient(145deg, #141a29, #0a0d16);
     border: 1px solid rgba(245, 250, 255, 0.08);
     box-shadow:
-      6px 6px 14px rgba(1, 2, 5, 0.85),
-      -4px -4px 10px rgba(32, 44, 72, 0.25),
+      5px 5px 12px rgba(1, 2, 5, 0.8),
+      -3px -3px 8px rgba(32, 44, 72, 0.22),
       inset 0 1px 0 rgba(245, 250, 255, 0.1);
-    transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  }
+  html.light .neu-button {
+    background: linear-gradient(145deg, #FFFFFF, #E9EFF8);
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    box-shadow:
+      4px 4px 12px rgba(148, 163, 184, 0.26),
+      -3px -3px 8px rgba(255, 255, 255, 0.92),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95);
   }
   .neu-button:hover {
-    border-color: rgba(0, 229, 255, 0.45);
+    border-color: rgb(var(--nexus-cyan-rgb) / 0.5);
     box-shadow:
-      0 0 24px rgba(0, 229, 255, 0.25),
-      4px 4px 10px rgba(1, 2, 5, 0.9),
-      inset 0 1px 0 rgba(0, 229, 255, 0.3);
+      0 0 18px rgb(var(--nexus-cyan-rgb) / 0.22),
+      inset 0 1px 0 rgb(var(--nexus-cyan-rgb) / 0.28);
     transform: translateY(-2px);
-  }
-  .neu-button:active {
-    box-shadow:
-      inset 4px 4px 8px rgba(1, 2, 5, 0.9),
-      inset -3px -3px 6px rgba(26, 36, 58, 0.3);
-    transform: translateY(0);
   }
 
   /* Electric & Holographic Borders */
@@ -171,30 +246,47 @@ html.light body {
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.7), rgba(0, 229, 255, 0.7), rgba(59, 130, 246, 0.4), rgba(236, 72, 153, 0.55));
+    background: linear-gradient(
+      135deg,
+      rgb(var(--nexus-violet-rgb) / 0.65),
+      rgb(var(--nexus-cyan-rgb) / 0.65),
+      rgb(var(--nexus-plasma-rgb) / 0.4),
+      rgb(var(--nexus-magenta-rgb) / 0.5)
+    );
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
             mask-composite: exclude;
     pointer-events: none;
-    opacity: 0.55;
-    transition: opacity 0.35s ease;
+    opacity: 0.52;
+    transition: opacity 0.3s ease;
   }
   .neon-border:hover::before {
-    opacity: 0.95;
+    opacity: 0.9;
   }
 
   /* Typography gradients */
   .text-gradient {
-    background: linear-gradient(120deg, #8B5CF6 0%, #00E5FF 48%, #3B82F6 78%, #EC4899 100%);
+    background: linear-gradient(
+      120deg,
+      var(--nexus-violet) 0%,
+      var(--nexus-cyan) 48%,
+      var(--nexus-plasma) 78%,
+      var(--nexus-magenta) 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
   .text-gradient-electric {
-    background: linear-gradient(95deg, #F5FAFF 0%, #00E5FF 45%, #8B5CF6 90%);
+    background: linear-gradient(
+      95deg,
+      var(--nexus-white) 0%,
+      var(--nexus-cyan) 45%,
+      var(--nexus-violet) 90%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -209,53 +301,46 @@ html.light body {
     background: linear-gradient(125deg, #8B5CF6 0%, #3B82F6 50%, #00E5FF 100%);
     background-size: 180% 180%;
     box-shadow:
-      0 0 25px rgba(139, 92, 246, 0.45),
-      0 10px 20px -8px rgba(0, 229, 255, 0.4),
+      0 0 22px rgba(139, 92, 246, 0.4),
+      0 8px 18px -6px rgba(0, 229, 255, 0.35),
       inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+  html.light .btn-primary {
+    color: #FFFFFF;
+    background: linear-gradient(125deg, #6D28D9 0%, #2563EB 52%, #0284C7 100%);
+    box-shadow:
+      0 10px 24px -6px rgba(37, 99, 235, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
   .btn-primary:hover {
     background-position: 100% 50%;
-    box-shadow:
-      0 0 38px rgba(0, 229, 255, 0.65),
-      0 0 60px rgba(139, 92, 246, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.5);
     transform: translateY(-2px);
   }
   .btn-ghost {
-    @apply btn-magnetic neu-button text-[#F5FAFF];
-  }
-  .light .btn-ghost {
-    color: #080B13;
-    background: rgba(255, 255, 255, 0.85);
+    @apply btn-magnetic neu-button text-nexus-white;
   }
 
   .chip {
     @apply inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide;
-    background: rgba(16, 21, 33, 0.78);
-    border: 1px solid rgba(0, 229, 255, 0.18);
-    color: #F5FAFF;
-    box-shadow: inset 0 1px 0 rgba(245, 250, 255, 0.08);
-  }
-  .light .chip {
-    background: rgba(255, 255, 255, 0.85);
-    color: #080B13;
-    border-color: rgba(139, 92, 246, 0.25);
+    background: rgb(var(--nexus-surface-rgb) / 0.82);
+    border: 1px solid rgb(var(--nexus-cyan-rgb) / 0.22);
+    color: var(--nexus-white);
   }
 
   .section {
     @apply relative w-full max-w-7xl mx-auto px-5 sm:px-8 md:px-10 py-24 md:py-32;
   }
   .section-title {
-    @apply font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight;
+    @apply font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-nexus-white;
   }
   .section-eyebrow {
-    @apply inline-flex items-center gap-2 uppercase text-xs font-semibold tracking-[0.32em] text-[#00E5FF];
+    @apply inline-flex items-center gap-2 uppercase text-xs font-semibold tracking-[0.32em] text-nexus-cyan;
   }
 
   .grid-bg {
     background-image:
-      linear-gradient(rgba(139, 92, 246, 0.055) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 229, 255, 0.055) 1px, transparent 1px);
+      linear-gradient(rgb(var(--nexus-violet-rgb) / 0.065) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--nexus-cyan-rgb) / 0.065) 1px, transparent 1px);
     background-size: 48px 48px;
   }
 
@@ -270,14 +355,28 @@ html.light body {
     pointer-events: none;
     border-radius: inherit;
     background:
-      linear-gradient(to right, rgba(0, 229, 255, 0.5) 2px, transparent 2px) 0 0,
-      linear-gradient(to bottom, rgba(0, 229, 255, 0.5) 2px, transparent 2px) 0 0,
-      linear-gradient(to left, rgba(139, 92, 246, 0.5) 2px, transparent 2px) 100% 100%,
-      linear-gradient(to top, rgba(139, 92, 246, 0.5) 2px, transparent 2px) 100% 100%;
+      linear-gradient(to right, rgb(var(--nexus-cyan-rgb) / 0.45) 2px, transparent 2px) 0 0,
+      linear-gradient(to bottom, rgb(var(--nexus-cyan-rgb) / 0.45) 2px, transparent 2px) 0 0,
+      linear-gradient(to left, rgb(var(--nexus-violet-rgb) / 0.45) 2px, transparent 2px) 100% 100%,
+      linear-gradient(to top, rgb(var(--nexus-violet-rgb) / 0.45) 2px, transparent 2px) 100% 100%;
     background-repeat: no-repeat;
     background-size: 12px 12px;
     opacity: 0.65;
   }
+}
+
+/* Light-mode border/surface compatibility for utility classes */
+html.light .border-white\/10 {
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+html.light .border-white\/5 {
+  border-color: rgba(15, 23, 42, 0.07) !important;
+}
+html.light .bg-white\/5 {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+}
+html.light .bg-white\/10 {
+  background-color: rgba(15, 23, 42, 0.08) !important;
 }
 
 /* Custom cursor */
@@ -290,25 +389,21 @@ html.light body {
   pointer-events: none;
   z-index: 9999;
   transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
 }
 .cursor-dot {
   width: 7px;
   height: 7px;
   border-radius: 9999px;
-  background: #00E5FF;
-  box-shadow: 0 0 12px #00E5FF, 0 0 24px #8B5CF6;
+  background: var(--nexus-cyan);
+  box-shadow: 0 0 10px var(--nexus-cyan);
 }
 .cursor-ring {
   width: 36px;
   height: 36px;
   border-radius: 9999px;
-  border: 1.5px solid rgba(139, 92, 246, 0.75);
-  box-shadow: 0 0 18px rgba(0, 229, 255, 0.2);
-  transition: width 0.22s cubic-bezier(0.22, 1, 0.36, 1),
-              height 0.22s cubic-bezier(0.22, 1, 0.36, 1),
-              border-color 0.2s ease,
-              background-color 0.2s ease,
-              box-shadow 0.2s ease;
+  border: 1.5px solid rgb(var(--nexus-violet-rgb) / 0.75);
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 @media (max-width: 768px), (hover: none), (pointer: coarse) {
   .cursor-dot,
@@ -321,8 +416,8 @@ html.light body {
 /* Dynamic Spotlight */
 .spotlight {
   background:
-    radial-gradient(650px circle at var(--mx, 50%) var(--my, 30%), rgba(139, 92, 246, 0.14), transparent 60%),
-    radial-gradient(420px circle at calc(var(--mx, 50%) + 140px) var(--my, 30%), rgba(0, 229, 255, 0.11), transparent 60%);
+    radial-gradient(600px circle at var(--mx, 50%) var(--my, 30%), rgb(var(--nexus-violet-rgb) / 0.11), transparent 60%),
+    radial-gradient(400px circle at calc(var(--mx, 50%) + 140px) var(--my, 30%), rgb(var(--nexus-cyan-rgb) / 0.09), transparent 60%);
 }
 
 /* Loader */
@@ -332,20 +427,17 @@ html.light body {
   z-index: 99999;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at 50% 50%, #080B13 0%, #030407 85%);
+  background: radial-gradient(circle at 50% 50%, var(--nexus-abyss) 0%, var(--nexus-void) 85%);
 }
 .loader-ring {
   width: 96px;
   height: 96px;
   border-radius: 9999px;
   border: 2px solid transparent;
-  border-top-color: #8B5CF6;
-  border-right-color: #00E5FF;
-  border-bottom-color: rgba(59, 130, 246, 0.35);
+  border-top-color: var(--nexus-violet);
+  border-right-color: var(--nexus-cyan);
+  border-bottom-color: rgb(var(--nexus-plasma-rgb) / 0.35);
   animation: spin 1.1s linear infinite;
-  box-shadow:
-    0 0 30px rgba(139, 92, 246, 0.45),
-    inset 0 0 25px rgba(0, 229, 255, 0.25);
 }
 @keyframes spin {
   to {
@@ -360,8 +452,7 @@ html.light body {
   left: 0;
   height: 3px;
   z-index: 100;
-  background: linear-gradient(90deg, #8B5CF6, #00E5FF, #3B82F6, #EC4899);
-  box-shadow: 0 0 14px rgba(0, 229, 255, 0.75);
+  background: linear-gradient(90deg, var(--nexus-violet), var(--nexus-cyan), var(--nexus-plasma), var(--nexus-magenta));
   transform-origin: 0 50%;
 }
 
@@ -370,57 +461,19 @@ html.light body {
   position: relative;
   height: 8px;
   border-radius: 9999px;
-  background: rgba(3, 4, 7, 0.75);
-  border: 1px solid rgba(245, 250, 255, 0.06);
-  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.85);
+  background: rgb(var(--nexus-void-rgb) / 0.75);
+  border: 1px solid rgb(var(--nexus-border-rgb) / 0.08);
   overflow: hidden;
+}
+html.light .skill-bar {
+  background: rgba(15, 23, 42, 0.08);
+  border-color: rgba(15, 23, 42, 0.08);
 }
 .skill-bar > span {
   position: absolute;
   inset: 0 auto 0 0;
-  background: linear-gradient(90deg, #8B5CF6, #3B82F6, #00E5FF);
+  background: linear-gradient(90deg, var(--nexus-violet), var(--nexus-plasma), var(--nexus-cyan));
   border-radius: inherit;
-  box-shadow: 0 0 14px rgba(0, 229, 255, 0.65);
-}
-.skill-bar::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 3s linear infinite;
-  mix-blend-mode: overlay;
-}
-
-/* Holographic card surface */
-.holo {
-  background:
-    linear-gradient(135deg, rgba(139, 92, 246, 0.14), rgba(0, 229, 255, 0.09) 45%, rgba(236, 72, 153, 0.11)),
-    rgba(16, 21, 33, 0.72);
-  border: 1px solid rgba(0, 229, 255, 0.18);
-  backdrop-filter: blur(20px);
-}
-.holo::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: conic-gradient(from 0deg, transparent, rgba(0, 229, 255, 0.22), transparent 35%, rgba(139, 92, 246, 0.22), transparent 70%);
-  filter: blur(22px);
-  opacity: 0.45;
-  pointer-events: none;
-  border-radius: inherit;
-}
-
-/* 3D Perspective utilities for Interactive ID Card & Panels */
-.perspective-1000 {
-  perspective: 1200px;
-}
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-.backface-hidden {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 }
 
 /* Reduced motion support */

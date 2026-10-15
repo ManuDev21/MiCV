@@ -86,11 +86,53 @@ export const skills: Record<string, Skill[]> = {
   ],
 };
 
-export const experience = [
+export interface ExperienceItem {
+  title: string;
+  company: string;
+  period: string;
+  summary: string;
+  tags: string[];
+  details: string[];
+  repoUrl?: string;
+}
+
+export const experience: ExperienceItem[] = [
+  {
+    title: 'ÍXA · PWA de Recomendación Turística con IA — Pueblos Mágicos',
+    company: 'Proyecto Full Stack + Machine Learning • Pueblos Mágicos (Isla Mujeres)',
+    period: '2025 — 2026',
+    repoUrl: 'https://github.com/ManuDev21/PWA-Proyecto-Pueblos-Magicos',
+    summary:
+      'Progressive Web App (PWA) impulsada por Inteligencia Artificial que identifica el perfil turístico del visitante y recomienda experiencias personalizadas (cultural, gastronómico, ecológico, comunitario, bienestar y fotográfico) promoviendo el turismo alternativo y sostenible en los Pueblos Mágicos.',
+    tags: [
+      'React 19',
+      'Vite PWA',
+      'FastAPI',
+      'Python',
+      'Scikit-Learn (IA/ML)',
+      'SQLAlchemy',
+      'MySQL 8',
+      'Three.js',
+      'GSAP',
+      'Framer Motion',
+      'Zustand',
+      'React Query',
+      'TailwindCSS',
+    ],
+    details: [
+      'Motor de recomendación híbrido de 2 capas con Machine Learning (Random Forest, KNN y Decision Tree con Scikit-Learn, Pandas y NumPy) que clasifica el perfil del viajero y calcula el porcentaje de confianza con justificación explicable.',
+      'Arquitectura Backend en Python + FastAPI bajo Clean Architecture (SOLID, Repository Pattern y Service Layer) con SQLAlchemy ORM, Pydantic y base de datos relacional MySQL 8 (5 perfiles, 6 categorías, 10 preguntas y 17 experiencias).',
+      'Frontend con Feature-Based Architecture en React 19 + Vite, Splash cinematográfico interactivo con partículas Three.js y GSAP, Chatbot conversacional integrado y Quiz inteligente interactivo.',
+      'Generador dinámico de itinerarios (medio día, 1 día, 2 días y fin de semana) con ubicaciones en mapas interactivos (Leaflet / Google Maps) y descarga de folleto personalizado en PDF (jsPDF).',
+      'Panel Administrativo con analítica y gráficas (Recharts y Chart.js), gestión CRUD de categorías, experiencias y preguntas, estadísticas de IA y selector de tema institucional persistido globalmente.',
+      'PWA instalable en Android e iOS con Web App Manifest, Service Worker, soporte offline-first y Smart Cache mediante vite-plugin-pwa.',
+    ],
+  },
   {
     title: 'Sistema de Gestión Deportiva',
     company: 'Filial Escuela de Fútbol Cañeros Toluca',
     period: '2024 — Presente',
+    repoUrl: 'https://github.com/ManuDev21/esforza-caneros',
     summary:
       'Desarrollo Full Stack de plataforma para administración y control de jugadores con panel administrativo moderno e interfaces responsivas.',
     tags: ['React', 'NestJS', 'GraphQL', 'TypeORM', 'MySQL'],
@@ -118,6 +160,7 @@ export const experience = [
     title: 'Sistema E-Commerce',
     company: 'Proyecto Académico / Personal',
     period: '2023',
+    repoUrl: 'https://github.com/ManuDev21/ShopTech',
     summary:
       'Plataforma E-Commerce con catálogo, carrito de compras, panel administrativo y gestión de usuarios.',
     tags: ['Python', 'Flask', 'MySQL', 'Bootstrap'],

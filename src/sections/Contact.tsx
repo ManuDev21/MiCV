@@ -87,6 +87,12 @@ export default function Contact() {
     const trimmedEmail = form.email.trim();
     const trimmedMessage = form.message.trim();
 
+    const isLight =
+      typeof document !== 'undefined' &&
+      document.documentElement.classList.contains('light');
+    const swalBg = isLight ? '#FFFFFF' : '#080B13';
+    const swalColor = isLight ? '#0B1120' : '#F5FAFF';
+
     if (!trimmedName || !trimmedEmail || !trimmedMessage) {
       setStatusBanner({
         type: 'error',
@@ -96,8 +102,8 @@ export default function Contact() {
         title: 'Campos incompletos',
         text: 'Por favor llena todos los campos.',
         icon: 'warning',
-        background: '#080B13',
-        color: '#F5FAFF',
+        background: swalBg,
+        color: swalColor,
         confirmButtonColor: '#8B5CF6',
       });
       return;
@@ -112,8 +118,8 @@ export default function Contact() {
         title: 'Correo inválido',
         text: 'Verifica el formato de tu correo electrónico.',
         icon: 'error',
-        background: '#080B13',
-        color: '#F5FAFF',
+        background: swalBg,
+        color: swalColor,
         confirmButtonColor: '#EC4899',
       });
       return;
@@ -154,8 +160,8 @@ export default function Contact() {
         title: '¡Mensaje enviado!',
         text: 'Gracias por contactarme. Te responderé pronto.',
         icon: 'success',
-        background: '#080B13',
-        color: '#F5FAFF',
+        background: swalBg,
+        color: swalColor,
         confirmButtonColor: '#00E5FF',
       });
       setForm({ name: '', email: '', message: '' });
@@ -168,8 +174,8 @@ export default function Contact() {
         title: 'No se pudo enviar',
         text: `Revisa tu conexión e inténtalo de nuevo, o escríbeme directo a ${profile.email}.`,
         icon: 'error',
-        background: '#080B13',
-        color: '#F5FAFF',
+        background: swalBg,
+        color: swalColor,
         confirmButtonColor: '#EC4899',
       });
     } finally {
